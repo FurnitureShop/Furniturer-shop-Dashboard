@@ -1,8 +1,20 @@
-import { BarChartOutlined, GroupOutlined, HddOutlined, SelectOutlined, ShopOutlined } from '@ant-design/icons'
+import {
+    BarChartOutlined,
+    GroupOutlined,
+    HddOutlined,
+    SelectOutlined,
+    ShopOutlined
+} from '@ant-design/icons'
 import { Menu } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { CATEGORY_MANAGEMENT, DEFAULT_ROUTE, INDUSTRY_MANAGEMENT, ORDER_MANAGEMENT, PRODUCT_MANAGEMENT } from 'routes/route.config'
+import {
+    CATEGORY_MANAGEMENT,
+    DEFAULT_ROUTE,
+    INDUSTRY_MANAGEMENT,
+    ORDER_MANAGEMENT,
+    PRODUCT_MANAGEMENT
+} from 'routes/route.config'
 
 const Navigation = () => {
     const DEFAULT_MENU_ID = DEFAULT_ROUTE

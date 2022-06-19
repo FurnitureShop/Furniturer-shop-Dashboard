@@ -17,7 +17,7 @@ const HomePage = () => {
             }}>
                 <div className='flex gap-2 items-center'>
                     <img
-                        className='object-contain bg-white p-2'
+                        className='object-contain bg-white p-3'
                         height={50}
                         src={logoDashboard}
                         alt="logo"

@@ -1,3 +1,4 @@
+import MainDashboard from 'components/Dashboard/MainDashboard'
 import HomePage from 'pages/HomePage'
 import LoginPage from 'pages/LoginPage'
 import React from 'react'
@@ -14,7 +15,7 @@ const AppRoute = () => {
             <BrowserRouter>
                 <Routes>
                     <Route path={DEFAULT_ROUTE} element={<HomePage />}>
-
+                        <Route index element={<MainDashboard />} />
                     </Route>
                     <Route path={LOGIN} element={<LoginPage />} />
                 </Routes>
