@@ -1,18 +1,20 @@
-// import { Column } from '@ant-design/charts'
-// import React from 'react'
+import { Column } from "@ant-design/plots"
+import React from 'react'
 
-// const ColumnSale = ({ data }) => {
-//     const configColumn = {
-//         data,
-//         xField: "type",
-//         yField: "value"
-//     }
 
-//     return (
-//         <Column
-//             {...configColumn}
-//         />
-//     )
-// }
+//Ant Design being bug!!!!
+const ColumnSale = ({ data }) => {
+    const configColumn = {
+        data,
+        xField: "type",
+        yField: "value"
+    }
 
-// export default ColumnSale
+    return (
+        <Column
+            {...configColumn}
+        />
+    )
+}
+
+export default ColumnSale

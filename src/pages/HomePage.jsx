@@ -12,7 +12,7 @@ const HomePage = () => {
         <Layout hasSider>
             <Sider style={{
                 overflow: "auto",
-                height: "100vh",
+                height: "auto",
                 
             }}>
                 <div className='flex gap-2 items-center'>

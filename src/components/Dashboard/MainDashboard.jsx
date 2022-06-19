@@ -1,5 +1,5 @@
 import { Card, Row, Col, Statistic, Radio, DatePicker } from 'antd'
-// import ColumnSale from 'components/Statistic/ColumnSale';
+import ColumnSale from 'components/Statistic/ColumnSale';
 import moment from 'moment';
 import React, { useState } from 'react'
 
@@ -45,6 +45,45 @@ const MainDashboard = () => {
         }
     };
 
+    const data = [
+        {
+          type: "Tỳ hưu đá thạch anh tím",
+          value: Math.floor(Math.random() * 100),
+        },
+        {
+          type: "Hồ ly đá Ruby",
+          value: Math.floor(Math.random() * 100),
+        },
+        {
+          type: "Tỳ hưu đá thạch anh trắng",
+          value: Math.floor(Math.random() * 100),
+        },
+        {
+          type: "Hồ ly thạch anh đen",
+          value: Math.floor(Math.random() * 100),
+        },
+        {
+          type: "Hồ ly đá Aquamarin",
+          value: Math.floor(Math.random() * 100),
+        },
+        {
+          type: "Hồ ly thạch anh tóc thương",
+          value: Math.floor(Math.random() * 100),
+        },
+        {
+          type: "Tỳ hưu đá mắt hổ",
+          value: Math.floor(Math.random() * 100),
+        },
+        {
+          type: "Thiềm thừ đá thạch anh trắng",
+          value: Math.floor(Math.random() * 100),
+        },
+        {
+          type: "Hồ ly đá mắt hổ",
+          value: Math.floor(Math.random() * 100),
+        },
+      ];
+
     return (
         <div className='dashboard'>
             <Row gutter={16} className="mb-4">
@@ -88,7 +127,7 @@ const MainDashboard = () => {
                                 </Col>
                             </Row>
                         }>
-                        {/* <ColumnSale data/> */}
+                        <ColumnSale data={data}/>
                     </Card>
                 </Col>
             </Row>
