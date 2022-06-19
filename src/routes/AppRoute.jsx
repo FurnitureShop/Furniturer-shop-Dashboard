@@ -1,3 +1,4 @@
+import HomePage from 'pages/HomePage'
 import LoginPage from 'pages/LoginPage'
 import React from 'react'
 import {
@@ -5,14 +6,16 @@ import {
     Routes,
     Route
 } from 'react-router-dom'
-import { LOGIN } from './route.config'
+import { DEFAULT_ROUTE, LOGIN } from './route.config'
 
 const AppRoute = () => {
     return (
         <div>
             <BrowserRouter>
                 <Routes>
+                    <Route path={DEFAULT_ROUTE} element={<HomePage />}>
 
+                    </Route>
                     <Route path={LOGIN} element={<LoginPage />} />
                 </Routes>
             </BrowserRouter>

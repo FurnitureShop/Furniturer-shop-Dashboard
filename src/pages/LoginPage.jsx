@@ -6,10 +6,14 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 const LoginPage = () => {
     return (
         <div className='flex w-full h-screen items-center justify-center'>
-            <div className='w-96'>
+            <div className='w-1/3 bg-white px-12 py-8 rounded-lg shadow-md'>
                 <h3>Furniturer Dashboard</h3>
                 <Form
-                    style={{ margin: "auto"}}
+                    style={{ margin: "auto" }}
+                    initialValues={{
+                        email: "admin@gmail.com",
+                        password: "123456789"
+                    }}
                 >
                     <Form.Item>
                         <Input
@@ -25,16 +29,21 @@ const LoginPage = () => {
                         />
                     </Form.Item>
                     <Form.Item>
-                        <Form.Item name="remember" valuePropName='checked' noStyle>
-                            <Checkbox>Remember me</Checkbox>
-                        </Form.Item>
+                        <div className='flex flex-row justify-between'>
+                            <Form.Item name="remember" valuePropName='checked' noStyle>
+                                <Checkbox>Remember me</Checkbox>
+                            </Form.Item>
 
-                        <a href='#'>
-                            Forgot password
-                        </a>
+                            <a
+                                className=''
+                                href='#'>
+                                Forgot password
+                            </a>
+                        </div>
+
                     </Form.Item>
 
-                    <Form.Item>
+                    <Form.Item className='!mb-0'>
                         <Button
                             type='primary'
                             htmlType='submit'
@@ -43,7 +52,7 @@ const LoginPage = () => {
                             Login
                         </Button>
                         Or
-                        <a className='ml-2' href='#'>Register noew</a>
+                        <a className='ml-2' href='#'>Register now</a>
                     </Form.Item>
                 </Form>
             </div>
