@@ -6,5 +6,11 @@ export const PRODUCT_MANAGEMENT = "products";
 export const ORDER_MANAGEMENT = "order";
 
 export const breadcrumbRoutes = [
+    { path: DEFAULT_ROUTE, breadcrumb: "Home" },
+    { path: CATEGORY_MANAGEMENT, breadcrumb: "Categories" },
+    { path: PRODUCT_MANAGEMENT, breadcrumb: "Products" },
+    { path: ORDER_MANAGEMENT, breadcrumb: "Orders" },
+    { path: INDUSTRY_MANAGEMENT, breadcrumb: "Industries" },
+
     
 ]
