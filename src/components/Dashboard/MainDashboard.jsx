@@ -1,5 +1,6 @@
 import { Card, Row, Col, Statistic, Radio, DatePicker } from 'antd'
 import ColumnSale from 'components/Statistic/ColumnSale';
+import DonutSaleCategory from 'components/Statistic/DonutSaleCategory';
 import moment from 'moment';
 import React, { useState } from 'react'
 
@@ -134,7 +135,7 @@ const MainDashboard = () => {
             <Row className='mb-4'>
                 <Col span={24}>
                     <Card bordered={false} title="Sales category share">
-                        
+                        <DonutSaleCategory data={data} />
                     </Card>
                 </Col>
             </Row>

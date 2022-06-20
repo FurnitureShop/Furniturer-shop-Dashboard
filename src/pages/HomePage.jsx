@@ -13,7 +13,7 @@ const HomePage = () => {
             <Sider style={{
                 overflow: "auto",
                 height: "auto",
-                
+                minHeight: "100vh"
             }}>
                 <div className='flex gap-2 items-center'>
                     <img

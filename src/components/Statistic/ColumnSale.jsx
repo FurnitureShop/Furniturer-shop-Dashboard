@@ -4,6 +4,7 @@ import React from 'react'
 
 //Ant Design being bug!!!!
 const ColumnSale = ({ data }) => {
+    //this is how you suppose to config the chart
     const configColumn = {
         data,
         xField: "type",
