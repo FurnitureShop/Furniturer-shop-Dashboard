@@ -1,9 +1,7 @@
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Col, Form, InputNumber, Row, Upload } from 'antd';
+import { Button, Col, Form, Input, InputNumber, Row, Select, Upload } from 'antd';
+import { useForm } from 'antd/lib/form/Form';
 import CustomBreadcrumb from 'components/shared/CustomBreadcrumb'
-import { useForm } from 'rc-field-form';
-import Input from 'rc-input';
-import Select from 'rc-select';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router';

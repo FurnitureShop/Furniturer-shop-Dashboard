@@ -9,8 +9,8 @@ export const EDIT_PRODUCT = `/${PRODUCT_MANAGEMENT}/:productName`;
 export const EDIT_PRODUCT_FROM_CATEGORY = `${CATEGORY_MANAGEMENT}/:categoryName/:productName`;
 export const ADD_PRODUCT_FROM_CATEGORY = `${CATEGORY_MANAGEMENT}/:categoryName/new-product`;
 export const ORDER_MANAGEMENT = "order";
+export const ORDER_DETAIL = `/order/:orderId`;
 export const USER_INFO_MANAGEMENT = "userinfo";
-
 
 export const breadcrumbRoutes = [
     { path: DEFAULT_ROUTE, breadcrumb: "Home" },
@@ -21,7 +21,18 @@ export const breadcrumbRoutes = [
         path: CATEGORY_DETAIL,
         breadcrumb: (props) => DynamicBreadcrumb(props, "categoryName"),
     },
-
+    {
+        path: EDIT_PRODUCT,
+        breadcrumb: (props) => DynamicBreadcrumb(props, "productName"),
+    },
+    {
+        path: ADD_PRODUCT_FROM_CATEGORY,
+        breadcrumb: "Add",
+    },
+    {
+        path: EDIT_PRODUCT_FROM_CATEGORY,
+        breadcrumb: (props) => DynamicBreadcrumb(props, "productName"),
+    },
 ]
 
 const DynamicBreadcrumb = ({ match }, propName) => {

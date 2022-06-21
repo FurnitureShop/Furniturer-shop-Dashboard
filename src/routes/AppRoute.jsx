@@ -20,12 +20,15 @@ import {
   EDIT_PRODUCT_FROM_CATEGORY,
   LOGIN,
   NEW_PRODUCT,
+  ORDER_MANAGEMENT,
   PRODUCT_MANAGEMENT,
   USER_INFO_MANAGEMENT
 } from './route.config'
 import Products from 'components/Products/Products'
 import CreateProduct from 'components/Products/CreateProduct'
 import EditProduct from 'components/Products/EditProduct'
+import Order from 'components/Order/Order'
+import OrderDetail from 'components/Order/OrderDetail'
 
 const AppRoute = () => {
   return (
@@ -47,6 +50,11 @@ const AppRoute = () => {
             <Route
               path={ADD_PRODUCT_FROM_CATEGORY}
               element={<CreateProduct />}
+            />
+            <Route path={ORDER_MANAGEMENT} element={<Order />} />
+            <Route
+              path={`${ORDER_MANAGEMENT}/:orderId`}
+              element={<OrderDetail />}
             />
           </Route>
           <Route path={LOGIN} element={<LoginPage />} />
