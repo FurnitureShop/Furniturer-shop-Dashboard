@@ -1,10 +1,11 @@
-export const DEFAULT_ROUTE = "/"
-export const LOGIN = "login"
+export const DEFAULT_ROUTE = "/";
+export const LOGIN = "login";
 export const CATEGORY_MANAGEMENT = "categories";
 export const CATEGORY_DETAIL = `/${CATEGORY_MANAGEMENT}/:categoryName`;
 export const INDUSTRY_MANAGEMENT = "industries";
 export const PRODUCT_MANAGEMENT = "products";
 export const ORDER_MANAGEMENT = "order";
+export const USER_INFO_MANAGEMENT = "userinfo";
 
 export const breadcrumbRoutes = [
     { path: DEFAULT_ROUTE, breadcrumb: "Home" },
@@ -22,3 +23,4 @@ export const breadcrumbRoutes = [
 const DynamicBreadcrumb = ({ match }, propName) => {
     return match.params[propName];
 };
+

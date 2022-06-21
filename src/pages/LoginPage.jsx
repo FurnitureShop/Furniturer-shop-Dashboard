@@ -1,63 +1,102 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react'
+import React, { useEffect } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from "react-redux";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { login, selectLoading, selectUser } from "store/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-    return (
-        <div className='flex w-full h-screen items-center justify-center'>
-            <div className='w-1/3 bg-white px-12 py-8 rounded-lg shadow-md'>
-                <h3>Furniturer Dashboard</h3>
-                <Form
-                    style={{ margin: "auto" }}
-                    initialValues={{
-                        email: "admin@gmail.com",
-                        password: "123456789"
-                    }}
-                >
-                    <Form.Item>
-                        <Input
-                            prefix={<UserOutlined />}
-                            placeholder="Email"
-                        />
-                    </Form.Item>
-                    <Form.Item>
-                        <Input
-                            prefix={<LockOutlined />}
-                            placeholder="Password"
-                            type={"password"}
-                        />
-                    </Form.Item>
-                    <Form.Item>
-                        <div className='flex flex-row justify-between'>
-                            <Form.Item name="remember" valuePropName='checked' noStyle>
-                                <Checkbox>Remember me</Checkbox>
-                            </Form.Item>
+  const [form] = Form.useForm();
 
-                            <a
-                                className=''
-                                href='#'>
-                                Forgot password
-                            </a>
-                        </div>
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-                    </Form.Item>
+  const user = useSelector(selectUser);
+  const loading = useSelector(selectLoading);
 
-                    <Form.Item className='!mb-0'>
-                        <Button
-                            type='primary'
-                            htmlType='submit'
-                            className='mr-2'
-                        >
-                            Login
-                        </Button>
-                        Or
-                        <a className='ml-2' href='#'>Register now</a>
-                    </Form.Item>
-                </Form>
+  const onFinish = (values) => {
+    const Login = async () => {
+      await dispatch(login(values));
+      if (user) navigate("/");
+    };
+
+    Login();
+  };
+
+  const onEmailChangeHandler = (value) => {
+    form.setFieldsValue({ email: value });
+  };
+
+  const onPasswordChangeHandler = (value) => {
+    console.log(value);
+    form.setFieldsValue({ password: value });
+  };
+
+  return (
+    <div className="flex w-full h-screen items-center justify-center">
+      <div className="w-1/3 bg-white px-12 py-8 rounded-lg shadow-md">
+        <h3>Furniturer Dashboard</h3>
+        <Form
+          form={form}
+          style={{ margin: "auto" }}
+          initialValues={{
+            email: "admin@123",
+            password: "admin",
+          }}
+          onFinish={onFinish}
+        >
+          <Form.Item name="email">
+            <Input
+              onChange={(e) => {
+                onEmailChangeHandler(e.target.value);
+              }}
+              defaultValue="admin@123"
+              prefix={<UserOutlined />}
+              placeholder="Email"
+            />
+          </Form.Item>
+          <Form.Item name="password">
+            <Input
+              onChange={(e) => {
+                onPasswordChangeHandler(e.target.value);
+              }}
+              defaultValue="admin"
+              prefix={<LockOutlined />}
+              placeholder="Password"
+              type={"password"}
+            />
+          </Form.Item>
+          <Form.Item>
+            <div className="flex flex-row justify-between">
+              <Form.Item valuePropName="checked" noStyle>
+                <Checkbox>Remember me</Checkbox>
+              </Form.Item>
+
+              {/* <a className="" href="#">
+                Forgot password
+              </a> */}
             </div>
-        </div>
-    )
-}
+          </Form.Item>
 
-export default LoginPage
+          <Form.Item className="!mb-0">
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="mr-2"
+              loading={loading}
+            >
+              Login
+            </Button>
+            {/* Or
+            <a className="ml-2" href="#">
+              Register now
+            </a> */}
+          </Form.Item>
+        </Form>
+      </div>
+    </div>
+  );
+};
+
+export default LoginPage;

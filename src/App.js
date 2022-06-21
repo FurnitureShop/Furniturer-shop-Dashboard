@@ -1,6 +1,7 @@
 import AppRoute from "routes/AppRoute";
 import "./App.css";
 import "./App.less";
+import "./App.scss";
 
 function App() {
   return (
