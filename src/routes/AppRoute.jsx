@@ -36,3 +36,5 @@ const AppRoute = () => {
     </div>
   )
 }
+
+export default AppRoute
