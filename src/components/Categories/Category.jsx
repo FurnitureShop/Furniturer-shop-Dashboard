@@ -1,11 +1,16 @@
 import CustomBreadcrumb from 'components/shared/CustomBreadcrumb'
 import React from 'react'
-import { Tooltip } from "antd";
+import { Col, Row, Tooltip } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import EditableContainer from "components/shared/EditableText";
+import { AddProduct } from 'components/Products/Products';
+import { CATEGORY_MANAGEMENT } from 'routes/route.config';
+import { useParams } from 'react-router';
 
 
 const Category = () => {
+    const { categoryName } = useParams()
+
     return (
         <div>
             <div className='bg-white p-9 pl-6 pt-4'>
@@ -52,6 +57,21 @@ const Category = () => {
                             Sold: 240 items
                         </p>
                     </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 className='text-center mt-5'>In this category</h3>
+
+                <div className='mt-2'>
+                    <Row gutter={[8,8]}>
+                        <Col className='gutter-row' span={6}>
+                            <AddProduct
+                                path={`${CATEGORY_MANAGEMENT}/${"productnamegoeshere"}/new-product`}
+                                state={{categoryId: 1}}
+                            />
+                        </Col>
+                    </Row>
                 </div>
             </div>
         </div>

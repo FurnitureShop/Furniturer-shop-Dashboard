@@ -7,6 +7,8 @@ export const PRODUCT_MANAGEMENT = "products";
 export const ORDER_MANAGEMENT = "order";
 export const USER_INFO_MANAGEMENT = "userinfo";
 
+export const NEW_PRODUCT = `/${PRODUCT_MANAGEMENT}/new`;
+
 export const breadcrumbRoutes = [
     { path: DEFAULT_ROUTE, breadcrumb: "Home" },
     { path: CATEGORY_MANAGEMENT, breadcrumb: "Categories" },

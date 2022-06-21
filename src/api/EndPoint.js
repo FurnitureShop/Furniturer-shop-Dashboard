@@ -18,6 +18,8 @@ export const ENP_GET_PRODUCT_BY_CATEGORY = "category/";
 export const ENP_CART = "cart/";
 export const ENP_ORDER = "order/";
 
+export const ENP_KIND = "kind";
+
 //API VietNam location
 export const BASE_API_LOCATION_VN_URL = "https://vapi.vnappmob.com/api/";
 export const ENP_PROVINCE = "province/";
