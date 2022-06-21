@@ -1,18 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { Button, Card, Input, Popconfirm } from "antd";
-import { NEW_PRODUCT } from "routes/route.config";
+import { Button, Card, Input, Popconfirm, Col, Row } from "antd";
+import { NEW_PRODUCT, PRODUCT_MANAGEMENT } from "routes/route.config";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import Paragraph from "antd/lib/skeleton/Paragraph";
 import CustomBreadcrumb from "components/shared/CustomBreadcrumb";
+import useDebounce from "hooks/useDebounce";
+import { getAllProduct, getProductWithName } from "store/productSlice";
+import { useSelector } from "react-redux";
+import "./Products.scss"
 
 const Products = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    const [productEditing, setProductEditing] = useState(false)
+    const [editProduct, setEditProduct] = useState()
+
+    let products = []
+    products = useSelector(getAllProduct)
+
+    const handleAddProduct = () => {
+        setProductEditing(!productEditing);
+    };
+
+    const onEditProduct = (product) => {
+        navigate(`/${PRODUCT_MANAGEMENT}/${product?.title}`, {
+            state: { id: product.id },
+        });
+    };
+
+    const onSearch = (e) => {
+        const searchKeyword = e.target.value
+        dispatch(getProductWithName(searchKeyword))
+    }
+
+    useEffect(() => {
+        if (editProduct) {
+            setProductEditing(true);
+        }
+    }, [editProduct]);
+
+    useEffect(() => {
+        dispatch(getAllProduct());
+    }, []);
+
     return (
-        <div>
+        <div className="products">
             <div className="bg-white p-9 pl-6 pt-4">
                 <CustomBreadcrumb />
                 <div className="pt-4">
@@ -22,11 +57,47 @@ const Products = () => {
 
             <div className="mt-6 m-auto w-1/2">
                 <Input.Search
-                    onChange
+                    onChange={useDebounce(onSearch)}
                     placeholder="Find a product"
                     enterButton="Search"
                     size="large"
                 ></Input.Search>
+            </div>
+
+            <div className="mt-2">
+                <Row gutter={[8, 8]}>
+                    <Col className="gutter-row" xl={6} lg={8} md={12}>
+                        <AddProduct handlePress={handleAddProduct} />
+                    </Col>
+                    {/* {products && products?.length > 0 ? (
+                        products.map(({ name, purchased, price, id, image, rating }) => (
+                            <Col className="gutter-row" xl={6} lg={8} md={12} key={id}>
+                                <ProductCard
+                                    id={id}
+                                    title={name}
+                                    description={purchased}
+                                    onEditPressed={() =>
+                                        onEditProduct({
+                                            title: name,
+                                            purchased,
+                                            price,
+                                            id,
+                                        })
+                                    }
+                                    price={price}
+                                    rating={rating}
+                                    image={image}
+                                    purchased={purchased}
+                                    // onDeleteProduct={() => {
+                                    //     dispatch(deleteProduct({ id, name }));
+                                    // }}
+                                />
+                            </Col>
+                        ))
+                    ) : (
+                        <div className="h-60 ">No product to display!</div>
+                    )} */}
+                </Row>
             </div>
         </div>
     )

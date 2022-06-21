@@ -21,6 +21,19 @@ export const getProductByCategory = createAsyncThunk(
   }
 );
 
+export const getProductWithName = createAsyncThunk(
+  "products/search",
+  async (searchTerm, { getState, dispatch }) => {
+    const url = ENP_GET_PRODUCT + "search?keyword=" + searchTerm;
+    const response = await axios.get(url, {
+      params: {
+        pageSize: 100,
+      },
+    });
+    return response.data;
+  }
+);
+
 export const productSlice = createSlice({
   name: "products",
   initialState: {

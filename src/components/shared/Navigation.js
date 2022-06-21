@@ -42,9 +42,6 @@ const Navigation = () => {
         <Menu.Item key={CATEGORY_MANAGEMENT} icon={<HddOutlined />}>
           <Link to={CATEGORY_MANAGEMENT}>Categories</Link>
         </Menu.Item>
-        <Menu.Item key={INDUSTRY_MANAGEMENT} icon={<GroupOutlined />}>
-          <Link to={INDUSTRY_MANAGEMENT}>Industries</Link>
-        </Menu.Item>
         <Menu.Item key={USER_INFO_MANAGEMENT} icon={<UserOutlined />}>
           <Link to={USER_INFO_MANAGEMENT}>User</Link>
         </Menu.Item>

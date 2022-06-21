@@ -16,6 +16,7 @@ import {
   CATEGORY_MANAGEMENT,
   DEFAULT_ROUTE,
   LOGIN,
+  NEW_PRODUCT,
   PRODUCT_MANAGEMENT,
   USER_INFO_MANAGEMENT
 } from './route.config'
@@ -32,6 +33,7 @@ const AppRoute = () => {
             <Route path={CATEGORY_DETAIL} element={<Category />} />
             <Route path={USER_INFO_MANAGEMENT} element={<UserInfo />} />
             <Route path={PRODUCT_MANAGEMENT} element={<Products />} />
+            <Route path={NEW_PRODUCT}  />
           </Route>
           <Route path={LOGIN} element={<LoginPage />} />
         </Routes>
