@@ -1,4 +1,5 @@
 import Categories from 'components/Categories/Categories'
+import Category from 'components/Categories/Category'
 import MainDashboard from 'components/Dashboard/MainDashboard'
 import HomePage from 'pages/HomePage'
 import LoginPage from 'pages/LoginPage'
@@ -8,7 +9,7 @@ import {
     Routes,
     Route
 } from 'react-router-dom'
-import { CATEGORY_MANAGEMENT, DEFAULT_ROUTE, LOGIN } from './route.config'
+import { CATEGORY_DETAIL, CATEGORY_MANAGEMENT, DEFAULT_ROUTE, LOGIN } from './route.config'
 
 const AppRoute = () => {
     return (
@@ -18,7 +19,7 @@ const AppRoute = () => {
                     <Route path={DEFAULT_ROUTE} element={<HomePage />}>
                         <Route index element={<MainDashboard />} />
                         <Route path={CATEGORY_MANAGEMENT} element={<Categories />}/>
-                        
+                        <Route path={"category"} element={<Category />} />
                     </Route>
                     <Route path={LOGIN} element={<LoginPage />} />
                 </Routes>
