@@ -1,10 +1,38 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { Button, Card, Popconfirm } from "antd";
+import { Button, Card, Input, Popconfirm } from "antd";
 import { NEW_PRODUCT } from "routes/route.config";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import Paragraph from "antd/lib/skeleton/Paragraph";
+import CustomBreadcrumb from "components/shared/CustomBreadcrumb";
+
+const Products = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    return (
+        <div>
+            <div className="bg-white p-9 pl-6 pt-4">
+                <CustomBreadcrumb />
+                <div className="pt-4">
+                    <h2>Products</h2>
+                </div>
+            </div>
+
+            <div className="mt-6 m-auto w-1/2">
+                <Input.Search
+                    onChange
+                    placeholder="Find a product"
+                    enterButton="Search"
+                    size="large"
+                ></Input.Search>
+            </div>
+        </div>
+    )
+}
+
+export default Products
 
 export function ProductCard({
     loading,
