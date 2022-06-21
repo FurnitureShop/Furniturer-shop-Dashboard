@@ -27,7 +27,7 @@ const AppRoute = () => {
           <Route path={DEFAULT_ROUTE} element={<HomePage />}>
             <Route index element={<MainDashboard />} />
             <Route path={CATEGORY_MANAGEMENT} element={<Categories />} />
-            <Route path={"category"} element={<Category />} />
+            <Route path={CATEGORY_DETAIL} element={<Category />} />
             <Route path={USER_INFO_MANAGEMENT} element={<UserInfo />} />
           </Route>
           <Route path={LOGIN} element={<LoginPage />} />

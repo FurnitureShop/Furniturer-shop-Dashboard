@@ -1,15 +1,45 @@
 import CustomBreadcrumb from 'components/shared/CustomBreadcrumb'
-import React from 'react'
-import { Col, Row, Tooltip } from "antd";
+import React, { useEffect, useState } from 'react'
+import { Col, notification, Row, Tooltip } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import EditableContainer from "components/shared/EditableText";
-import { AddProduct } from 'components/Products/Products';
+import { AddProduct, ProductCard } from 'components/Products/Products';
 import { CATEGORY_MANAGEMENT } from 'routes/route.config';
-import { useParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { getAllCategories, selectCategoryById } from 'store/categorySlice';
+import { axios } from 'lib/axios/Interceptor';
+import { ENP_GET_PRODUCT } from 'api/EndPoint';
 
 
 const Category = () => {
     const { categoryName } = useParams()
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const location = useLocation()
+    const [products, setProducts] = useState([])
+
+    const { image, name, id } = useSelector(state => selectCategoryById(state, categoryName)) || {}
+
+    const deleteProduct = (prodId) => {
+        axios.delete(ENP_GET_PRODUCT + prodId).then((res => {
+            notification.success({
+                message: "Product deleted!"
+            })
+            const updatedProduct = products.filter((p) => p.id != prodId);
+            setProducts([...updatedProduct]);
+        }))
+    }
+
+    useEffect(() => {
+        const getInitialData = async () => {
+            dispatch(getAllCategories());
+            const response = await axios.get("products/kind/" + location.state.id);
+            setProducts(response.data.content);
+        };
+        getInitialData();
+    }, []);
 
     return (
         <div>
@@ -19,7 +49,7 @@ const Category = () => {
                     <div className="relative mr-2 p-2">
                         <img
                             //gotta put a src of img here
-                            src
+                            src={image}
                             alt="fail"
                             className="rounded-full"
                             width={100}
@@ -41,7 +71,7 @@ const Category = () => {
                                 <EditableContainer>
                                     <EditableContainer.Header
                                         //gotta put a name here
-                                        value
+                                        value={name}
                                     />
                                 </EditableContainer>
                             </span>
@@ -64,13 +94,33 @@ const Category = () => {
                 <h3 className='text-center mt-5'>In this category</h3>
 
                 <div className='mt-2'>
-                    <Row gutter={[8,8]}>
+                    <Row gutter={[8, 8]}>
                         <Col className='gutter-row' span={6}>
                             <AddProduct
-                                path={`${CATEGORY_MANAGEMENT}/${"productnamegoeshere"}/new-product`}
-                                state={{categoryId: 1}}
+                                path={`${CATEGORY_MANAGEMENT}/${categoryName}/new-product`}
+                                state={{ categoryId: id }}
                             />
                         </Col>
+                        {products && products.length > 0 &&
+                            products.map((item) => (
+                                <Col className="gutter-row" span={6} key={item.id}>
+                                    <ProductCard
+                                        title={item.name}
+                                        onEditPressed={() =>
+                                            navigate(
+                                                `/${CATEGORY_MANAGEMENT}/${categoryName}/${item.name}`,
+                                                { state: { id: item.id } }
+                                            )
+                                        }
+                                        price={item.price}
+                                        stockStatus={Math.round(Math.random() * 100)}
+                                        image={item.image}
+                                        id={item.id}
+                                        categoryId={name}
+                                        onDeleteProduct={() => deleteProduct(item.id)}
+                                    />
+                                </Col>
+                            ))}
                     </Row>
                 </div>
             </div>
