@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { login } from "store/userSlice";
+import { login, selectLoading, selectUser } from "store/userSlice";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
@@ -12,10 +12,13 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const user = useSelector(selectUser);
+  const loading = useSelector(selectLoading);
+
   const onFinish = (values) => {
     const Login = async () => {
       await dispatch(login(values));
-      navigate(-2);
+      if (user) navigate("/");
     };
 
     Login();
@@ -77,7 +80,12 @@ const LoginPage = () => {
           </Form.Item>
 
           <Form.Item className="!mb-0">
-            <Button type="primary" htmlType="submit" className="mr-2">
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="mr-2"
+              loading={loading}
+            >
               Login
             </Button>
             {/* Or
