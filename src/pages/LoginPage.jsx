@@ -5,23 +5,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { login, selectLoading, selectUser } from "store/userSlice";
 import { useNavigate } from "react-router-dom";
+import { getAllProduct } from "store/productSlice";
 
 const LoginPage = () => {
   const [form] = Form.useForm();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const user = useSelector(selectUser);
   const loading = useSelector(selectLoading);
 
   const onFinish = (values) => {
-    const Login = async () => {
-      await dispatch(login(values));
-      if (user) navigate("/");
-    };
-
-    Login();
+    dispatch(login(values)).then((value) => {
+      if (value.payload.user) {
+        dispatch(getAllProduct());
+        navigate("/");
+      } else {
+      }
+    });
   };
 
   const onEmailChangeHandler = (value) => {
@@ -42,7 +42,7 @@ const LoginPage = () => {
           style={{ margin: "auto" }}
           initialValues={{
             email: "admin@123",
-            password: "admin",
+            password: "1",
           }}
           onFinish={onFinish}
         >

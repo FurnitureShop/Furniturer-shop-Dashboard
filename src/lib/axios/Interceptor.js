@@ -44,12 +44,7 @@ axiosInstance.interceptors.response.use(
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     const originalRequest = error.config;
     //  there is any previous get token request
-    if (
-      (error.response?.status === 400 ||
-        error.response?.status === 401 ||
-        error.response?.status === 403) &&
-      !LocalStorageService.getAuthToken()
-    ) {
+    if (error.response?.status === 401 && !LocalStorageService.getAuthToken()) {
       handleError(error.response?.status, error.message);
       window.history.pushState({}, "", "/login?isWarning=true");
       window.history.go();
