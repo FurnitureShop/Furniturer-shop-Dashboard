@@ -4,6 +4,7 @@ import {
   HddOutlined,
   SelectOutlined,
   ShopOutlined,
+  UsergroupAddOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
@@ -11,6 +12,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   CATEGORY_MANAGEMENT,
+  CUSTOMER_MANAGEMENT,
   DEFAULT_ROUTE,
   INDUSTRY_MANAGEMENT,
   ORDER_MANAGEMENT,
@@ -32,6 +34,9 @@ const Navigation = () => {
       <Menu theme="dark" mode="inline" selectedKeys={selectedMenuID}>
         <Menu.Item key={DEFAULT_ROUTE} icon={<BarChartOutlined />}>
           <Link to={DEFAULT_ROUTE}>Dashboard</Link>
+        </Menu.Item>
+        <Menu.Item key={CUSTOMER_MANAGEMENT} icon={<UsergroupAddOutlined />}>
+          <Link to={CUSTOMER_MANAGEMENT}>Customers</Link>
         </Menu.Item>
         <Menu.Item key={ORDER_MANAGEMENT} icon={<ShopOutlined />}>
           <Link to={ORDER_MANAGEMENT}>Order</Link>

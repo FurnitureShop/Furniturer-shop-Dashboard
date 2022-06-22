@@ -101,7 +101,7 @@ const Order = () => {
     ];
 
     return (
-        <div>
+        <div className='order'>
             <div className="bg-white p-9 pl-6 pt-6">
                 <CustomBreadcrumb />
                 <div className="pt-6">
