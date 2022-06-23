@@ -1,6 +1,5 @@
 import {
   BarChartOutlined,
-  GroupOutlined,
   HddOutlined,
   SelectOutlined,
   ShopOutlined,
@@ -14,11 +13,11 @@ import {
   CATEGORY_MANAGEMENT,
   CUSTOMER_MANAGEMENT,
   DEFAULT_ROUTE,
-  INDUSTRY_MANAGEMENT,
   ORDER_MANAGEMENT,
   PRODUCT_MANAGEMENT,
   USER_INFO_MANAGEMENT,
 } from "routes/route.config";
+import "./Navigation.scss"
 
 const Navigation = () => {
   const DEFAULT_MENU_ID = DEFAULT_ROUTE;
@@ -31,7 +30,11 @@ const Navigation = () => {
 
   return (
     <>
-      <Menu theme="dark" mode="inline" selectedKeys={selectedMenuID}>
+      <Menu
+        className="navigation"
+        theme="dark"
+        mode="inline"
+        selectedKeys={selectedMenuID}>
         <Menu.Item key={DEFAULT_ROUTE} icon={<BarChartOutlined />}>
           <Link to={DEFAULT_ROUTE}>Dashboard</Link>
         </Menu.Item>

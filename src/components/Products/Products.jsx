@@ -48,10 +48,10 @@ const Products = () => {
 
     return (
         <div className="products">
-            <div className="bg-white p-9 pl-6 pt-4">
+            <div className="bg-white px-9 py-6">
                 <CustomBreadcrumb />
-                <div className="pt-4">
-                    <h2>Products</h2>
+                <div className="pt-3">
+                    <h2 className="text-2xl font-semibold mb-0">Products</h2>
                 </div>
             </div>
 
@@ -166,12 +166,12 @@ export function AddProduct({ path = NEW_PRODUCT, state }) {
     return (
         <Button
             type="dashed"
-            className="w-full "
+            className="w-full !px-10 !py-3 !h-fit"
             style={{ minHeight: "100%" }}
             onClick={handlePress}
         >
             <PlusOutlined />
-            add new product
+            Add new product
         </Button>
     );
 }

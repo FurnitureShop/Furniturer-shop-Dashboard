@@ -8,7 +8,7 @@ import { axios } from "lib/axios/Interceptor";
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router";
 import { ORDER_DETAIL, ORDER_MANAGEMENT } from "routes/route.config";
-import FormatProduct from "utils/formatProduct";
+import FormatProduct from "utils/FormatProduct";
 import { generateStatusID } from "utils/generateStatusId";
 
 const OrderDetail = () => {
@@ -71,25 +71,25 @@ const OrderDetail = () => {
           <Col span={14}>
             <Row>
               <Col>
-                <p>Customer: {customerData.customerName}</p>
+                <p>Customer: <b>{customerData.customerName}</b></p>
               </Col>
             </Row>
             <Row>
               <Col>
                 <p>
                   Order time:{" "}
-                  {new Date(customerData.createAt).toLocaleDateString("en-GB")}
+                  <b>{new Date(customerData.createAt).toLocaleDateString("en-GB")}</b>
                 </p>
               </Col>
             </Row>
             <Row>
               <Col>
-                <p>Cancel reason: {customerData.note}</p>
+                <p>Cancel reason: <b>{customerData.note}</b></p>
               </Col>
             </Row>
             <Row>
               <Col>
-                <p>Address: {customerData.address}</p>
+                <p>Address: <b>{customerData.address}</b></p>
               </Col>
             </Row>
           </Col>

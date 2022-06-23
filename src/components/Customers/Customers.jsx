@@ -71,10 +71,10 @@ const Customers = () => {
 
   return (
     <div className="order">
-      <div className="bg-white p-9 pl-6 pt-6">
+      <div className="bg-white px-9 py-6">
         <CustomBreadcrumb />
-        <div className="pt-6">
-          <h2>Customers</h2>
+        <div className="pt-3">
+          <h2 className="text-2xl font-semibold mb-0">Customers</h2>
         </div>
       </div>
       <div className=" mt-6 mb-4 m-auto w-1/2">

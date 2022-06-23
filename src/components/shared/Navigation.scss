@@ -1,0 +1,22 @@
+.navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    li.ant-menu-item {
+        margin: 0 !important; 
+        font-size: 16px;
+        font-weight: 300;
+        
+    }
+
+    li.ant-menu-item-selected {
+        font-size: 17px;
+        font-weight: 400;
+        background-color: #f0f2f5 !important;
+
+        span, a {
+            color: #000 !important;
+        }
+    }
+}
