@@ -4,6 +4,7 @@ export const ENP_LOGIN = "auth/sign-in-seller";
 export const ENP_REGISTER = "auth/sign-up";
 export const ENP_REFRESH_TOKEN = "auth/refresh";
 export const ENP_UPDATE_USER_INFO = "user";
+export const ENP_GET_ALL_USER = "user/all";
 export const ENP_CHANGE_USER_PASSWORD = "user/changepassword";
 
 export const ENP_ADD_ADDRESS = "address";

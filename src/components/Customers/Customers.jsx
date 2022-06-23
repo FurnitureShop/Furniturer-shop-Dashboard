@@ -1,117 +1,102 @@
 /* eslint-disable default-case */
-import { CaretRightOutlined } from '@ant-design/icons'
-import { Button, Input, Popover, Space, Table } from 'antd'
-import CustomBreadcrumb from 'components/shared/CustomBreadcrumb'
-import useDebounce from 'hooks/useDebounce'
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { CaretRightOutlined } from "@ant-design/icons";
+import { Button, Input, Popover, Skeleton, Space, Table } from "antd";
+import { ENP_GET_ALL_USER } from "api/EndPoint";
+import CustomBreadcrumb from "components/shared/CustomBreadcrumb";
+import useDebounce from "hooks/useDebounce";
+import { axios } from "lib/axios/Interceptor";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { filterCustomerName } from "utils/filterCustomerName";
 
 const Customers = () => {
-    const [customerList, setCustomerList] = useState();
+  const [originData, setOriginData] = useState();
+  const [customerList, setCustomerList] = useState();
 
-    const onSearch = (e) => {
-        const searchTerm = e.target.value;
-        // TODO: api call and filter items
-    };
+  const onSearch = (value) => {
+    const filteredData = filterCustomerName(value, "name", originData);
+    setCustomerList(filteredData);
+  };
 
-    const columnsCustomer = [
-        {
-            title: "CUSTOMER NO.",
-            dataIndex: "id",
-            key: "id",
-        },
-        {
-            title: "NAME",
-            dataIndex: "customerName",
-            key: "customerName",
-        },
-        {
-            title: "EMAIL",
-            dataIndex: "customerEmail",
-            key: "customerEmail",
-        },
-        {
-            title: "PHONE NUMBER",
-            dataIndex: "customerPhone",
-            key: "customerPhone",
-        },
-        {
-            title: "ADDRESS",
-            dataIndex: "address",
-            key: "address",
-            width: "40%",
-        },
-        // {
-        //     title: "",
-        //     key: "action",
-        //     render: (text, record) => {
-        //         return (
-        //             <Space size="middle">
-        //                 {/* <a onClick={() => onClickConfirmed(record.id)}>Confirmed</a>
-        //         <a onClick={() => onClickDelivering(record.id)}>Delivering</a>
-        //         <a onClick={() => onClickSuccess(record.id)}>Success</a> */}
-        //                 <Popover
-        //                     title="Cancel reason"
-        //                     content={
-        //                         <div>
-        //                             <Input.Group compact>
-        //                                 {/* <Input onChange={(e) => setCancelReason(e.target.value)} /> */}
-        //                             </Input.Group>
-        //                             <div className="mt-2">
-        //                                 <Button
-        //                                 //   onClick={() => onClickCancel(record.id, cancelReason)}
-        //                                 >
-        //                                     OK
-        //                                 </Button>
-        //                             </div>
-        //                         </div>
-        //                     }
-        //                     trigger="click"
-        //                 >
-        //                     <a>Cancel</a>
-        //                 </Popover>
-        //             </Space>
-        //         );
-        //     },
-        // },
-        // // Open order detail in new tab
-        // {
-        //     title: "",
-        //     key: "orderDetail",
-        //     render: (text, record) => {
-        //         // Substring for remove #(anchor) in id
-        //         return (
-        //             <Link to={`/order/${record.id}`} state={record}>
-        //                 <CaretRightOutlined style={{ color: "black" }} />
-        //             </Link>
-        //         );
-        //     },
-        // },
-    ];
+  const onClear = (value) => {
+    if (value === "") {
+      onSearch(value);
+    }
+  };
 
-    return (
-        <div className='order'>
-            <div className="bg-white p-9 pl-6 pt-6">
-                <CustomBreadcrumb />
-                <div className="pt-6">
-                    <h2>Customers</h2>
-                </div>
-            </div>
-            <div className=" mt-6 mb-4 m-auto w-1/2">
-                <Input.Search
-                    onChange={useDebounce(onSearch)}
-                    placeholder="Customer name"
-                    enterButton="Search"
-                    size="large"
-                ></Input.Search>
-            </div>
-            <Table
-                className="tb__customer"
-                dataSource={customerList}
-                columns={columnsCustomer}
-            />
+  useEffect(() => {
+    axios.get(ENP_GET_ALL_USER).then((response) => {
+      setOriginData(response.data.users);
+      setCustomerList(response.data.users);
+    });
+  }, []);
+
+  const columnsCustomer = [
+    {
+      title: "CUSTOMER NO.",
+      dataIndex: "_id",
+      key: "_id",
+    },
+    {
+      title: "NAME",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "EMAIL",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
+      title: "PHONE NUMBER",
+      dataIndex: "phone",
+      key: "phone",
+    },
+    {
+      title: "ADDRESS",
+      dataIndex: "address",
+      key: "address",
+      width: "40%",
+      render: (text, record, index) => {
+        return record.address.map((value) => {
+          return (
+            <p
+              key={Math.random()}
+            >{`${value.landNumber}, ${value.ward}, ${value.district}, ${value.province}`}</p>
+          );
+        });
+      },
+    },
+  ];
+
+  return (
+    <div className="order">
+      <div className="bg-white p-9 pl-6 pt-6">
+        <CustomBreadcrumb />
+        <div className="pt-6">
+          <h2>Customers</h2>
         </div>
-    )
-}
+      </div>
+      <div className=" mt-6 mb-4 m-auto w-1/2">
+        <Input.Search
+          onChange={(e) => onClear(e.target.value)}
+          onSearch={onSearch}
+          placeholder="Customer name"
+          enterButton="Search"
+          size="large"
+        ></Input.Search>
+      </div>
+      {customerList ? (
+        <Table
+          className="tb__customer"
+          dataSource={customerList}
+          columns={columnsCustomer}
+        />
+      ) : (
+        <Skeleton />
+      )}
+    </div>
+  );
+};
 
-export default Customers
+export default Customers;

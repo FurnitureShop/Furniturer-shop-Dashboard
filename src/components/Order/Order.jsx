@@ -29,8 +29,7 @@ const Order = () => {
   const dispatch = useDispatch();
 
   const onSearch = (value) => {
-    console.log(value);
-    const filteredData = filterCustomerName(value, originOrder);
+    const filteredData = filterCustomerName(value, "customerName", originOrder);
     setOrderList(filteredData);
   };
 
