@@ -1,13 +1,13 @@
 //to fix some styling
-.tb__order:only-child .ant-spin-nested-loading .ant-spin-container .ant-table {
+.tb__customer:only-child .ant-spin-nested-loading .ant-spin-container .ant-table {
     margin: 0px;
 }
 
-.tb__order .ant-table-expanded-row .ant-table-cell {
+.tb__customer .ant-table-expanded-row .ant-table-cell {
     background: #fff;
 }
 
-.hd__order {
+.hd__customer {
     background-color: #1da57a;
     font-size: 2.25rem;
 }
@@ -16,7 +16,7 @@
     pointer-events: none;
 }
 
-.order {
+.customer {
 
     input.ant-input {
         padding: 6.5px 11px;

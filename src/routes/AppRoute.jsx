@@ -1,10 +1,3 @@
-
-import Categories from 'components/Categories/Categories'
-import Category from 'components/Categories/Category'
-import UserInfo from "components/UserInfo/UserInfo"
-import MainDashboard from 'components/Dashboard/MainDashboard'
-import HomePage from 'pages/HomePage'
-import LoginPage from 'pages/LoginPage'
 import React from 'react'
 import {
   BrowserRouter,
@@ -15,6 +8,7 @@ import {
   ADD_PRODUCT_FROM_CATEGORY,
   CATEGORY_DETAIL,
   CATEGORY_MANAGEMENT,
+  CUSTOMER_MANAGEMENT,
   DEFAULT_ROUTE,
   EDIT_PRODUCT,
   EDIT_PRODUCT_FROM_CATEGORY,
@@ -24,11 +18,18 @@ import {
   PRODUCT_MANAGEMENT,
   USER_INFO_MANAGEMENT
 } from './route.config'
+import Categories from 'components/Categories/Categories'
+import Category from 'components/Categories/Category'
+import UserInfo from "components/UserInfo/UserInfo"
+import MainDashboard from 'components/Dashboard/MainDashboard'
+import HomePage from 'pages/HomePage'
+import LoginPage from 'pages/LoginPage'
 import Products from 'components/Products/Products'
 import CreateProduct from 'components/Products/CreateProduct'
 import EditProduct from 'components/Products/EditProduct'
 import Order from 'components/Order/Order'
 import OrderDetail from 'components/Order/OrderDetail'
+import Customers from 'components/Customers/Customers'
 
 const AppRoute = () => {
   return (
@@ -40,6 +41,7 @@ const AppRoute = () => {
             <Route path={CATEGORY_MANAGEMENT} element={<Categories />} />
             <Route path={CATEGORY_DETAIL} element={<Category />} />
             <Route path={USER_INFO_MANAGEMENT} element={<UserInfo />} />
+            <Route path={CUSTOMER_MANAGEMENT} element={<Customers />} />
             <Route path={PRODUCT_MANAGEMENT} element={<Products />} />
             <Route path={NEW_PRODUCT} element={<CreateProduct />} />
             <Route path={EDIT_PRODUCT} element={<EditProduct />} />

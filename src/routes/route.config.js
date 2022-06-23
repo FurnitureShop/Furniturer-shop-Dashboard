@@ -11,12 +11,15 @@ export const ADD_PRODUCT_FROM_CATEGORY = `${CATEGORY_MANAGEMENT}/:categoryName/n
 export const ORDER_MANAGEMENT = "order";
 export const ORDER_DETAIL = `/order/:orderId`;
 export const USER_INFO_MANAGEMENT = "userinfo";
+export const CUSTOMER_MANAGEMENT = "customers";
 
 export const breadcrumbRoutes = [
     { path: DEFAULT_ROUTE, breadcrumb: "Home" },
     { path: CATEGORY_MANAGEMENT, breadcrumb: "Categories" },
     { path: PRODUCT_MANAGEMENT, breadcrumb: "Products" },
     { path: ORDER_MANAGEMENT, breadcrumb: "Orders" },
+    { path: USER_INFO_MANAGEMENT, breadcrumb: "Users" },
+    { path: CUSTOMER_MANAGEMENT, breadcrumb: "Customers" },
     {
         path: CATEGORY_DETAIL,
         breadcrumb: (props) => DynamicBreadcrumb(props, "categoryName"),
