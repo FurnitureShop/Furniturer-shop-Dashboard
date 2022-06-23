@@ -14,8 +14,6 @@ export function filterDateObject(fromDate, toDate, data) {
     }
   });
 
-  console.log(filterProductObject);
-
   for (let key in filterProductObject) {
     const statisticProduct = {
       type: key,

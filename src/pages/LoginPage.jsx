@@ -29,7 +29,6 @@ const LoginPage = () => {
   };
 
   const onPasswordChangeHandler = (value) => {
-    console.log(value);
     form.setFieldsValue({ password: value });
   };
 

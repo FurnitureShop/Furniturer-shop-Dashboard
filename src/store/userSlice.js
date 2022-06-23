@@ -11,7 +11,6 @@ import LocalStorageService from "services/LocalStorage";
 export const login = createAsyncThunk(
   "auth/login",
   async (data, thunkParam) => {
-    console.log(data);
     const response = await axios.post(ENP_LOGIN, data);
 
     LocalStorageService.setAuthToken(response.data.accessToken);
@@ -85,8 +84,6 @@ export const userSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.curUser = action.payload.user;
         state.isLoading = false;
-        console.log(state.curUser);
-        console.log("FINISH");
       })
       .addCase(updateInfo.fulfilled, (state, action) => {
         state.curUser = action.payload.user;
