@@ -19,7 +19,7 @@ export const ENP_CART = "cart/";
 export const ENP_ORDER = "order/";
 export const ENP_GET_ALL_ORDER = "/order/customerPaidOrder/all";
 
-export const ENP_KIND = "kind";
+export const ENP_CATEGORY = "category/";
 
 //API VietNam location
 export const BASE_API_LOCATION_VN_URL = "https://vapi.vnappmob.com/api/";

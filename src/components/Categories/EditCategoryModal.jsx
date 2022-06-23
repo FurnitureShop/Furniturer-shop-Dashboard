@@ -1,30 +1,51 @@
-import React from 'react'
+import React from "react";
 import { Form, Input, Modal } from "antd";
+import { axios } from "lib/axios/Interceptor";
+import { ENP_CATEGORY } from "api/EndPoint";
+import { useDispatch } from "react-redux";
+import { categoryUpdated } from "store/categorySlice";
 
 const EditCategoryModal = ({ visible, handleClose, initialValues }) => {
-    const [form] = Form.useForm()
+  const [form] = Form.useForm();
 
-    return (
-        <Modal
-            title="Edit category"
-            visible={visible}
-            onOk={(_) => form.submit()}
-            onCancel={(_) => handleClose()}
-        >
-            <Form
-                layout="vertical"
-                form={form}
-                initialValues={initialValues}
-            >
-                <Form.Item name="name" label="Title" rules={[{ required: true }]}>
-                    <Input />
-                </Form.Item>
-                <Form.Item name="description" label="Description">
-                    <Input.TextArea />
-                </Form.Item>
-            </Form>
-        </Modal>
-    )
-}
+  const dispatch = useDispatch();
 
-export default EditCategoryModal
+  const onFinish = (value) => {
+    axios
+      .put(ENP_CATEGORY + initialValues._id, { description: value.description })
+      .then(() => {
+        dispatch(
+          categoryUpdated({
+            id: value.name,
+            changes: { description: value.description },
+          })
+        );
+        handleClose();
+      });
+  };
+
+  return (
+    <Modal
+      title="Edit category"
+      visible={visible}
+      onOk={() => form.submit()}
+      onCancel={() => handleClose()}
+    >
+      <Form
+        layout="vertical"
+        form={form}
+        initialValues={initialValues}
+        onFinish={onFinish}
+      >
+        <Form.Item name="name" label="Name">
+          <Input disabled />
+        </Form.Item>
+        <Form.Item name="description" label="Description">
+          <Input.TextArea />
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+};
+
+export default EditCategoryModal;

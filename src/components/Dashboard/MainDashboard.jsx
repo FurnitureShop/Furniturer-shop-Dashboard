@@ -19,6 +19,8 @@ const MainDashboard = () => {
   const [originData, setOriginData] = useState();
   const [data, setData] = useState([]);
 
+  let heello = true;
+
   const handleClickThisYear = () => {
     setDateRange([moment().startOf("year"), moment().endOf("year")]);
   };
@@ -95,7 +97,7 @@ const MainDashboard = () => {
       matchProductIdWithName(
         filterDateObject(dateRange[0], dateRange[1], originData)
       );
-  }, [dateRange]);
+  }, [dateRange, heello]);
 
   return (
     <div className="dashboard">
