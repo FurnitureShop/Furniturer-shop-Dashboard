@@ -17,7 +17,8 @@ export const ENP_GET_PRODUCT_BY_CATEGORY = "category/";
 
 export const ENP_CART = "cart/";
 export const ENP_ORDER = "order/";
-export const ENP_GET_ALL_ORDER = "/order/customerPaidOrder/all";
+export const ENP_GET_ALL_PAID_ORDER = "/order/customerPaidOrder/all";
+export const ENP_GET_ALL_ORDER = "/order/customerOrder/all";
 
 export const ENP_CATEGORY = "category/";
 

@@ -1,11 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Card, Row, Col, Statistic, Radio, DatePicker, Skeleton } from "antd";
-import { ENP_GET_ALL_ORDER, ENP_GET_PRODUCT } from "api/EndPoint";
+import { ENP_GET_PRODUCT } from "api/EndPoint";
 import ColumnSale from "components/Statistic/ColumnSale";
 import DonutSaleCategory from "components/Statistic/DonutSaleCategory";
 import { axios } from "lib/axios/Interceptor";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getAllPaidOrder,
+  selectNumberOfOrder,
+  selectPaidOrder,
+  selectTotalPrice,
+} from "store/orderSlice";
 import { filterDateObject } from "utils/FilterDate";
 
 const MainDashboard = () => {
@@ -14,12 +21,14 @@ const MainDashboard = () => {
     moment().startOf("day"),
     moment().endOf("day"),
   ]);
-  const [totalPrice, setTotalPrice] = useState();
-  const [totalOrder, setTotalOrder] = useState();
-  const [originData, setOriginData] = useState();
+
+  const totalPrice = useSelector(selectTotalPrice);
+  const totalOrder = useSelector(selectNumberOfOrder);
+  const originData = useSelector(selectPaidOrder);
+
   const [data, setData] = useState([]);
 
-  let heello = true;
+  const dispatch = useDispatch();
 
   const handleClickThisYear = () => {
     setDateRange([moment().startOf("year"), moment().endOf("year")]);
@@ -75,29 +84,23 @@ const MainDashboard = () => {
     });
   };
 
+  const filterData = () => {
+    matchProductIdWithName(
+      filterDateObject(dateRange[0], dateRange[1], originData)
+    );
+  };
+
   useEffect(() => {
-    axios.get(ENP_GET_ALL_ORDER).then((response) => {
-      let total = 0;
-      for (let order of response.data.orders) {
-        total += order.totalPrice;
-      }
-
-      matchProductIdWithName(
-        filterDateObject(dateRange[0], dateRange[1], response.data.orders)
-      );
-
-      setTotalPrice(total);
-      setTotalOrder(response.data.orders.length);
-      setOriginData(response.data.orders);
-    });
+    if (!originData || originData.length === 0)
+      dispatch(getAllPaidOrder()).then(() => {
+        filterData();
+      });
+    else filterData();
   }, []);
 
   useEffect(() => {
-    if (originData)
-      matchProductIdWithName(
-        filterDateObject(dateRange[0], dateRange[1], originData)
-      );
-  }, [dateRange, heello]);
+    if (originData) filterData();
+  }, [dateRange]);
 
   return (
     <div className="dashboard">
