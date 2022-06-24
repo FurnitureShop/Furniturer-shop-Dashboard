@@ -11,6 +11,7 @@ export const ENP_ADD_ADDRESS = "address";
 export const ENP_CHANGE_ADDRESS = "address/";
 
 export const ENP_GET_PRODUCT = "product/";
+export const ENP_PRODUCT = "product/";
 export const ENP_GET_PRODUCT_BY_LIST_ID = "product/getproductbylistid";
 
 export const ENP_GET_ALL_CATEGORIES = "category";

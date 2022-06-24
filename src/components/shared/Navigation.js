@@ -1,7 +1,7 @@
 import {
   BarChartOutlined,
-  GroupOutlined,
   HddOutlined,
+  LogoutOutlined,
   SelectOutlined,
   ShopOutlined,
   UsergroupAddOutlined,
@@ -9,25 +9,30 @@ import {
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import {
   CATEGORY_MANAGEMENT,
   CUSTOMER_MANAGEMENT,
   DEFAULT_ROUTE,
-  INDUSTRY_MANAGEMENT,
+  LOGIN,
   ORDER_MANAGEMENT,
   PRODUCT_MANAGEMENT,
   USER_INFO_MANAGEMENT,
 } from "routes/route.config";
+import { logout } from "store/userSlice";
 
 const Navigation = () => {
   const DEFAULT_MENU_ID = DEFAULT_ROUTE;
+  const LOGOUT = -1;
   const [selectedMenuID, setSelectedMenuID] = useState(DEFAULT_MENU_ID);
   const location = useLocation();
   useEffect(() => {
     const path = location.pathname.substring(1, location.pathname.length);
     setSelectedMenuID(path || DEFAULT_MENU_ID);
   }, [location, DEFAULT_MENU_ID]);
+
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -49,6 +54,15 @@ const Navigation = () => {
         </Menu.Item>
         <Menu.Item key={USER_INFO_MANAGEMENT} icon={<UserOutlined />}>
           <Link to={USER_INFO_MANAGEMENT}>User</Link>
+        </Menu.Item>
+        <Menu.Item
+          onClick={() => {
+            dispatch(logout());
+          }}
+          key={LOGOUT}
+          icon={<LogoutOutlined />}
+        >
+          <Link to={LOGIN}>Logout</Link>
         </Menu.Item>
       </Menu>
     </>

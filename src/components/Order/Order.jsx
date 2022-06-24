@@ -1,12 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable default-case */
 import { CaretRightOutlined } from "@ant-design/icons";
 import { Badge, Button, Input, Popover, Skeleton, Space, Table } from "antd";
 import { ENP_ORDER } from "api/EndPoint";
 import CustomBreadcrumb from "components/shared/CustomBreadcrumb";
-import useDebounce from "hooks/useDebounce";
 import { axios } from "lib/axios/Interceptor";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAllOrder, selectOrder, updateOrderStatus } from "store/orderSlice";
@@ -28,24 +28,32 @@ const Order = () => {
   const [cancelReason, setCancelReason] = useState("");
   const dispatch = useDispatch();
 
+  const filterValue = useRef("");
+
   const onSearch = (value) => {
+    filterValue.current = value;
     const filteredData = filterCustomerName(value, "customerName", originOrder);
     setOrderList(filteredData);
   };
 
   const onClear = (value) => {
     if (value === "") {
+      filterValue.current = "";
       onSearch(value);
     }
   };
 
   useEffect(() => {
     if (!orderList || orderList.length === 0) {
-      dispatch(getAllOrder()).then(() => {
-        setOrderList(originOrder);
+      dispatch(getAllOrder()).then((value) => {
+        setOrderList(value.payload.orders);
       });
     } else setOrderList(originOrder);
   }, []);
+
+  useEffect(() => {
+    onSearch(filterValue.current);
+  }, [originOrder]);
 
   const onClickAccepted = (id) => {
     axios.put(ENP_ORDER + `${id}/changestatus/Accepted`).then(() => {

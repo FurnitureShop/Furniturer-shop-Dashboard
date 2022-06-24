@@ -8,19 +8,36 @@ import { CATEGORY_MANAGEMENT } from "routes/route.config";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { getAllCategories, selectCategoryById } from "store/categorySlice";
+import {
+  categoryUpdated,
+  getAllCategories,
+  selectCategoryById,
+} from "store/categorySlice";
 import { axios } from "lib/axios/Interceptor";
-import { ENP_GET_PRODUCT } from "api/EndPoint";
+import { ENP_CATEGORY, ENP_GET_PRODUCT } from "api/EndPoint";
 
 const Category = () => {
   const { categoryName } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation();
+
   const [products, setProducts] = useState([]);
 
-  const { image, name, id } =
+  const category =
     useSelector((state) => selectCategoryById(state, categoryName)) || {};
+
+  console.log(category);
+
+  const onUpdateDescription = (value) => {
+    axios.put(ENP_CATEGORY + category._id, { description: value }).then(() => {
+      dispatch(
+        categoryUpdated({
+          id: value.name,
+          changes: { description: value.description },
+        })
+      );
+    });
+  };
 
   const deleteProduct = (prodId) => {
     axios.delete(ENP_GET_PRODUCT + prodId).then((res) => {
@@ -35,9 +52,11 @@ const Category = () => {
   useEffect(() => {
     const getInitialData = async () => {
       dispatch(getAllCategories());
-      const response = await axios.get("products/kind/" + location.state.id);
-      setProducts(response.data.content);
+      const response = await axios.get(ENP_CATEGORY + category.name);
+
+      setProducts(response.data.products);
     };
+
     getInitialData();
   }, []);
 
@@ -46,46 +65,15 @@ const Category = () => {
       <div className="bg-white p-9 pl-6 pt-4">
         <CustomBreadcrumb />
         <div className="pt-4 flex">
-          <div className="relative mr-2 p-2">
-            <img
-              //gotta put a src of img here
-              src={image}
-              alt="fail"
-              className="rounded-full"
-              width={100}
-            ></img>
-            <div className="absolute transition-all duration-300 hover:opacity-60 bg-black h-full w-full left-0 top-0 opacity-0 text-white text-center">
-              <label
-                id="getFileLabel"
-                htmlFor="getFile"
-                className="w-full h-full flex items-center justify-center cursor-pointer"
-              >
-                <EditOutlined /> change
-              </label>
-              <input type="file" className="hidden" id="getFile" />
-            </div>
-          </div>
           <div className="flex-1">
+            <h2 className="cursor-pointer">{category.name}</h2>
             <Tooltip title="Click to start editing" placement="rightTop">
               <span>
-                <EditableContainer>
-                  <EditableContainer.Header
-                    //gotta put a name here
-                    value={name}
-                  />
+                <EditableContainer updateApi={onUpdateDescription}>
+                  <EditableContainer.Text value={category.description} />
                 </EditableContainer>
               </span>
             </Tooltip>
-            <Tooltip title="Click to start editing" placement="rightTop">
-              <span>
-                <EditableContainer>
-                  <EditableContainer.Text value="" />
-                </EditableContainer>
-              </span>
-            </Tooltip>
-            <p className="opacity-80 text-gray-800 text-base">
-              Sold: 240 items
-            </p>
           </div>
         </div>
       </div>
@@ -97,28 +85,28 @@ const Category = () => {
           <Row gutter={[8, 8]}>
             <Col className="gutter-row" span={6}>
               <AddProduct
-                path={`${CATEGORY_MANAGEMENT}/${categoryName}/new-product`}
-                state={{ categoryId: id }}
+                path={`/${CATEGORY_MANAGEMENT}/${categoryName}/new-product`}
+                state={{ categoryId: category.name }}
               />
             </Col>
             {products &&
               products.length > 0 &&
               products.map((item) => (
-                <Col className="gutter-row" span={6} key={item.id}>
+                <Col className="gutter-row" span={6} key={item._id}>
                   <ProductCard
                     title={item.name}
                     onEditPressed={() =>
                       navigate(
                         `/${CATEGORY_MANAGEMENT}/${categoryName}/${item.name}`,
-                        { state: { id: item.id } }
+                        { state: { id: item._id } }
                       )
                     }
                     price={item.price}
-                    stockStatus={Math.round(Math.random() * 100)}
+                    stockStatus={item.inStock}
                     image={item.image}
-                    id={item.id}
-                    categoryId={name}
-                    onDeleteProduct={() => deleteProduct(item.id)}
+                    id={item._id}
+                    categoryId={category.name}
+                    onDeleteProduct={() => dispatch(deleteProduct(item._id))}
                   />
                 </Col>
               ))}
