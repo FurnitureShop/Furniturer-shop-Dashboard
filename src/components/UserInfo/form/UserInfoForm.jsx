@@ -26,7 +26,7 @@ export default function UserInfoForm() {
 
   const onFinish = (values) => {
     console.log(values);
-    // dispatch(updateInfo(values));
+    dispatch(updateInfo(values));
   };
 
   return (
