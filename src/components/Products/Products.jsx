@@ -180,12 +180,12 @@ export function AddProduct({ path = NEW_PRODUCT, state }) {
   return (
     <Button
       type="dashed"
-      className="w-full "
+      className="w-full !px-10 !py-3 !h-fit"
       style={{ minHeight: "100%" }}
       onClick={handlePress}
     >
       <PlusOutlined />
-      add new product
+      Add new product
     </Button>
   );
 }

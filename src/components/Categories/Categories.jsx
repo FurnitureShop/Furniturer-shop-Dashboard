@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import CustomBreadcrumb from "components/shared/CustomBreadcrumb";
-import { List, Tabs } from "antd";
+import { List } from "antd";
 import CategoryListFooter from "./CategoryListFooter";
 import CategoryListItem from "./CategoryListItem";
 import AddCategoryModal from "./AddCategoryModal";
 import EditCategoryModal from "./EditCategoryModal";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  categoryAdapter,
   getAllCategories,
-  globalCategoryAdapter,
   selectAllCategories,
 } from "store/categorySlice";
-import { store } from "../../store";
+// import { store } from "../../store";
 
 const Categories = () => {
   const [createVisible, setCreateVisible] = useState(false);
@@ -37,10 +35,10 @@ const Categories = () => {
 
   return (
     <div className="categories">
-      <div className="bg-white p-9 pl-6 pt-4">
+      <div className="bg-white px-9 py-6">
         <CustomBreadcrumb />
-        <div className="pt-4">
-          <h2>Categories</h2>
+        <div className="pt-3">
+          <h2 className="text-2xl font-semibold mb-0">Categories</h2>
         </div>
       </div>
 
