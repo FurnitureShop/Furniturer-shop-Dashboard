@@ -40,8 +40,8 @@ const LoginPage = () => {
           form={form}
           style={{ margin: "auto" }}
           initialValues={{
-            email: "admin@123",
-            password: "1",
+            email: "",
+            password: "",
           }}
           onFinish={onFinish}
         >
