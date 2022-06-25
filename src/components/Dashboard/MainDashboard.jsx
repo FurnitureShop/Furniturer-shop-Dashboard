@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Card, Row, Col, Statistic, Radio, DatePicker, Skeleton } from "antd";
-import { ENP_GET_PRODUCT } from "api/EndPoint";
+import { ENP_GET_ALL_USER, ENP_GET_PRODUCT } from "api/EndPoint";
 import ColumnSale from "components/Statistic/ColumnSale";
 import DonutSaleCategory from "components/Statistic/DonutSaleCategory";
 import { axios } from "lib/axios/Interceptor";
@@ -21,6 +21,14 @@ const MainDashboard = () => {
     moment().startOf("day"),
     moment().endOf("day"),
   ]);
+
+  const [length, setLength] = useState(0);
+
+  useEffect(() => {
+    axios.get(ENP_GET_ALL_USER).then((response) => {
+      setLength(response.data.users.length);
+    });
+  }, []);
 
   const totalPrice = useSelector(selectTotalPrice);
   const totalOrder = useSelector(selectNumberOfOrder);
@@ -112,7 +120,7 @@ const MainDashboard = () => {
         </Col>
         <Col span={8}>
           <Card bordered={false}>
-            <Statistic title="Traffic " value={8846} />
+            <Statistic title="Traffic " value={length} />
           </Card>
         </Col>
         <Col span={8}>
