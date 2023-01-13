@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect } from "react";
+import React from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { login, selectLoading, selectUser } from "store/userSlice";
+import { login, selectLoading } from "store/userSlice";
 import { useNavigate } from "react-router-dom";
 import { getAllProduct } from "store/productSlice";
 

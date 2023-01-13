@@ -3,6 +3,8 @@
 //   padding: 20px 12px 6px 11px;
 // }
 
+// @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
   background-color: #f0f0f0;
 }
@@ -13,4 +15,8 @@
 
 .ant-col .ant-form-item {
   margin-top: 0px;
+}
+
+.App {
+  font-family: 'Poppins' !important;
 }
